@@ -1,3 +1,6 @@
+> [!WARNING]
+> This library is not actively maintained. Using an actively developed alternative like [Flop](https://github.com/woylie/flop) is recommended.
+
 # Paginator
 
 [![Build status](https://github.com/duffelhq/paginator/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/duffelhq/paginator/actions?query=branch%3Amain)
