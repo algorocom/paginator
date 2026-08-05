@@ -7,6 +7,7 @@ defmodule Paginator.Cursor do
     encoded_cursor
     |> Base.url_decode64!()
     |> safe_binary_to_term()
+    |> validate_decoded_cursor()
   end
 
   defp safe_binary_to_term(binary) do
@@ -24,6 +25,12 @@ defmodule Paginator.Cursor do
   defp ensure_cursor_structs_loaded do
     _ = Code.ensure_loaded(NaiveDateTime)
     _ = Code.ensure_loaded(Calendar.ISO)
+  end
+
+  defp validate_decoded_cursor(cursor) when is_map(cursor) or is_list(cursor), do: cursor
+
+  defp validate_decoded_cursor(_cursor) do
+    raise ArgumentError, "cannot deserialize cursor"
   end
 
   def encode(values) when is_map(values) do
