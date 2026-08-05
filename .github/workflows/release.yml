@@ -1,0 +1,64 @@
+name: Publish Hex release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+concurrency:
+  group: paginator-hex-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: >-
+      github.event_name != 'push' ||
+      !startsWith(github.event.head_commit.message, '[DEPLOY]')
+    runs-on: ubuntu-latest
+    environment: hex-publish
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Configure release author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create release version commit
+        id: version
+        uses: ./.github/actions/date-hex-release
+        with:
+          version_file: mix.exs
+          source_ref_file: mix.exs
+
+      - name: Validate Hex package
+        run: mix hex.build
+
+      - name: Push release version commit
+        run: git push origin HEAD:main
+
+      - name: Publish private Hex package
+        env:
+          HEX_API_KEY: ${{ secrets.HEX_ORGANIZATION_PUBLISH_KEY }}
+        run: |
+          test -n "$HEX_API_KEY"
+          mix hex.publish --organization recfut --yes
+
+      - name: Tag published release
+        env:
+          GIT_TAG: ${{ steps.version.outputs.git_tag }}
+        run: |
+          git tag -a "$GIT_TAG" -m "Release ${{ steps.version.outputs.hex_version }}"
+          git push origin "$GIT_TAG"
+
+      - name: Verify published package
+        run: >-
+          mix hex.info paginator
+          ${{ steps.version.outputs.hex_version }}
+          --organization recfut

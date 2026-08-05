@@ -1,11 +1,11 @@
 # Paginator
 
-[![Build status](https://github.com/duffelhq/paginator/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/duffelhq/paginator/actions?query=branch%3Amain)
-[![Module Version](https://img.shields.io/hexpm/v/paginator.svg)](https://hex.pm/packages/paginator)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/paginator/)
-[![Total Download](https://img.shields.io/hexpm/dt/paginator.svg)](https://hex.pm/packages/paginator)
-[![License](https://img.shields.io/hexpm/l/paginator.svg)](https://github.com/duffelhq/paginator/blob/main/LICENSE.md)
-[![Last Updated](https://img.shields.io/github/last-commit/duffelhq/paginator.svg)](https://github.com/duffelhq/paginator/commits/main)
+[![Build status](https://github.com/algorocom/paginator/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/algorocom/paginator/actions?query=branch%3Amain)
+[![Module Version](https://img.shields.io/hexpm/v/recfut/paginator.svg)](https://hex.pm/packages/recfut/paginator)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://recfut.hexdocs.pm/paginator/)
+[![Total Download](https://img.shields.io/hexpm/dt/recfut/paginator.svg)](https://hex.pm/packages/recfut/paginator)
+[![License](https://img.shields.io/hexpm/l/recfut/paginator.svg)](https://github.com/algorocom/paginator/blob/main/LICENSE.md)
+[![Last Updated](https://img.shields.io/github/last-commit/algorocom/paginator.svg)](https://github.com/algorocom/paginator/commits/main)
 
 [Cursor based pagination](http://use-the-index-luke.com/no-offset) for Elixir [Ecto](https://github.com/elixir-ecto/ecto).
 
@@ -68,7 +68,7 @@ Add `:paginator` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:paginator, "~> 1.2.0"}
+    {:paginator, "~> 1.2.0", organization: "recfut"}
   ]
 end
 ```
@@ -187,7 +187,7 @@ IO.puts "total count: #{metadata.total_count}"
 ## Security Considerations
 
 `Repo.paginate/4` will throw an `ArgumentError` should it detect an executable term in the cursor parameters passed to it (`before`, `after`).
-This is done to protect you from potential side-effects of malicious user input, see [paginator_test.exs](https://github.com/duffelhq/paginator/blob/main/test/paginator_test.exs#L830).
+This is done to protect you from potential side-effects of malicious user input, see [paginator_test.exs](https://github.com/algorocom/paginator/blob/main/test/paginator_test.exs#L830).
 
 ## Indexes
 
@@ -215,7 +215,7 @@ for you automatically based on the fields specified in `:cursor_fields`.
 ## Documentation
 
 Documentation is written into the library, you will find it in the source code, accessible from `iex` and of course, it
-all gets published to [hexdocs](http://hexdocs.pm/paginator).
+all gets published to [hexdocs](https://recfut.hexdocs.pm/paginator).
 
 ## Contributing
 
@@ -224,7 +224,7 @@ all gets published to [hexdocs](http://hexdocs.pm/paginator).
 Clone the repo and fetch its dependencies:
 
 ```
-$ git clone https://github.com/duffelhq/paginator.git
+$ git clone https://github.com/algorocom/paginator.git
 $ cd paginator
 $ mix deps.get
 $ mix test
