@@ -1,0 +1,36 @@
+name: Date Hex release
+description: Creates a date-based Hex version commit and returns its matching Git tag.
+
+inputs:
+  version_file:
+    description: Path to the Mix project file containing the literal version.
+    required: true
+    default: mix.exs
+  commit_message_prefix:
+    description: Prefix for the release version commit.
+    required: false
+    default: "[DEPLOY]"
+  source_ref_file:
+    description: Optional Mix project file whose @source_ref should match the Git tag.
+    required: false
+
+outputs:
+  hex_version:
+    description: Date-based Semantic Versioning package version.
+    value: ${{ steps.version.outputs.hex_version }}
+  git_tag:
+    description: Human-readable tag for the same release.
+    value: ${{ steps.version.outputs.git_tag }}
+
+runs:
+  using: composite
+  steps:
+    - id: version
+      shell: bash
+      run: >-
+        perl "$GITHUB_ACTION_PATH/version_bump.pl"
+        --commit
+        --version-file "${{ inputs.version_file }}"
+        --commit-message-prefix "${{ inputs.commit_message_prefix }}"
+        --source-ref-file "${{ inputs.source_ref_file }}"
+        --github-output "$GITHUB_OUTPUT"

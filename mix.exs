@@ -1,7 +1,8 @@
 defmodule Paginator.Mixfile do
   use Mix.Project
 
-  @source_url "https://github.com/duffelhq/paginator"
+  @source_url "https://github.com/algorocom/paginator"
+  @source_ref "main"
   @version "1.2.0"
 
   def project do
@@ -50,7 +51,7 @@ defmodule Paginator.Mixfile do
       maintainers: ["Steve Domin"],
       licenses: ["MIT"],
       links: %{
-        "Changelog" => "https://hexdocs.pm/paginator/changelog.html",
+        "Changelog" => "https://recfut.hexdocs.pm/paginator/changelog.html",
         "GitHub" => @source_url
       }
     ]
@@ -64,9 +65,9 @@ defmodule Paginator.Mixfile do
         "README.md": [title: "Overview"]
       ],
       main: "readme",
-      canonical: "http://hexdocs.pm/paginator",
+      canonical: "https://recfut.hexdocs.pm/paginator",
       source_url: @source_url,
-      source_ref: "v#{@version}",
+      source_ref: @source_ref,
       formatters: ["html"]
     ]
   end
